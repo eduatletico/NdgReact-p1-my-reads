@@ -24,7 +24,7 @@ class Search extends Component {
 
   		this.setState(() => ({
         showLoader: true,
-        query: query.trim()
+        query: query
       }))
 
 	    BooksAPI.search(query.trim())
@@ -62,9 +62,9 @@ class Search extends Component {
   }
 
   componentDidMount() {
-  	let url = window.location.href.split('/');
-  	if (url.length > 4) {
-      this.searchBooks(decodeURI(url[url.length - 1]))
+  	const urlParams = window.location.href.split('/');
+  	if (urlParams.length > 4) {
+      this.searchBooks(decodeURI(urlParams[4]))
   	}
   }
 

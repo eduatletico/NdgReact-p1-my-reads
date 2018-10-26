@@ -8,6 +8,7 @@ import BookDetails from './BookDetails';
 import Loader from './Loader';
 
 if (!Array.prototype.last){
+  /*eslint no-extend-native: ["error", { "exceptions": ["Array"] }]*/
   Array.prototype.last = function(){
     return this[this.length - 1];
   };
@@ -52,9 +53,9 @@ class BooksApp extends React.Component {
             <BookDetails
               bookId={window.location.href.split('/').last()}
               onCloseDetails={() => {
-                let url = window.location.href.split('/')
-                if (url.length > 5) {
-                  history.push(`/search/${url[url.length - 2]}`)
+                const urlParams = window.location.href.split('/')
+                if (urlParams.length > 5) {
+                  history.push(`/search/${urlParams[4]}`)
                 } else {
                   history.goBack()
                 }

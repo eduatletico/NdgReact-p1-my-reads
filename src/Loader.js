@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -21,14 +21,12 @@ const styles = theme => ({
   },
 })
 
-class Loader extends Component {
-	render () {
-		return (
-			<div className={this.props.classes.paper}>
-				<CircularProgress className={this.props.classes.progress} size={80} />
-			</div>
-		)
-	}
+const Loader = (props) => {
+	return (
+		<div className={props.classes.paper}>
+			<CircularProgress className={props.classes.progress} size={80} />
+		</div>
+	)
 }
 
 export default withStyles(styles)(Loader)
