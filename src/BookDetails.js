@@ -74,7 +74,7 @@ class BookDetails extends Component {
 	        >
 		      	<div style={this.getModalStyle()} className={this.props.classes.paper}>
 		      		<div style={{float:`left`,clear:`none`}}>
-		      			<img src={book.imageLinks.thumbnail} alt="Thumb" />
+		      			<img src={(book.imageLinks)?book.imageLinks.thumbnail:require('./imgs/nocover.jpg')} alt="Thumb" />
 		      		</div>
 		      		<div style={{float:`left`,clear:`none`, marginLeft: `20px`}}>
 		      			{(book.authors) &&

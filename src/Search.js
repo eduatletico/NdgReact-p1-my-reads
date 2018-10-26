@@ -64,7 +64,7 @@ class Search extends Component {
   componentDidMount() {
   	let url = window.location.href.split('/');
   	if (url.length > 4) {
-      this.searchBooks(url[url.length - 1])
+      this.searchBooks(decodeURI(url[url.length - 1]))
   	}
   }
 
@@ -88,13 +88,7 @@ class Search extends Component {
           	/>
           </div>
         </div>
-        {
-      		(showLoader)
-      		?
-      		<Loader />
-      		:
-      		''
-      	}
+        { showLoader && <Loader /> }
         <div className="search-books-results">
           <ol className="books-grid">
           	{

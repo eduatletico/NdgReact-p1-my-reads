@@ -19,25 +19,21 @@ class BooksApp extends React.Component {
     showLoader: true
   }
 
-  getAllBooks = () => {
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          books,
-          showLoader: false
-        }))
-      })
-  }
-
   addBookToShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-      .then((book, shelf) => {
-        this.getAllBooks()
-      })
+    this.setState({ showLoader: true });
+
+    BooksAPI.update(book, shelf);
+
+    book.shelf = shelf;
+    this.setState(state => ({
+      books: state.books.filter(b => b.id !== book.id).concat([ book ]),
+      showLoader: false
+    }))
   }
 
-  componentDidMount() {
-    this.getAllBooks()
+  async componentDidMount() {
+    const books = await BooksAPI.getAll()
+    this.setState({ books, showLoader: false })
   }
 
   render() {
@@ -69,13 +65,7 @@ class BooksApp extends React.Component {
 
         <Route exact path='/' render={() => (
             <div>
-            {
-              (this.state.showLoader)
-              ?
-              <Loader />
-              :
-              ''
-            }
+            { this.state.showLoader && <Loader /> }
               <Shelves
                 books={this.state.books}
                 onAddBookToShelf={(book, shelf) => {
